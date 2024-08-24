@@ -85,21 +85,61 @@ console.log('is a the first letter of beluga?', isFirstLetter('a', 'beluga'))
 function sumAll(array) {
   let sum = 0;
   // TODO: loop to add items
-
+  for(num of array){
+    sum += num;
+  }
   // TODO: return the sum
+  return sum;
 }
+//assuming here we are given a correct array of only numbers
+console.log('sum of [4,1,2] is', sumAll([4,1,2]));
 
 // 10. Function to return a new array of all positive (greater than zero)
 //     numbers contained in an input array. If there are no positive numbers
 //     return an empty array. Note: The input array should not change.
-function allPositive() {
-
+function allPositive(mixedArray) {
+  let posArray = [];
+for(item of mixedArray){
+  if(isPositive(item)) posArray.push(item);
 }
-
+return posArray;
+}
+console.log('positive array of [4,1,-2,5,-17,0,1] is', allPositive([4,1,-2,5,-17,0,1]));
+let inputSafetyCheck = [-5, 4, -3, 2, -1];
+console.log('input safety check array is', inputSafetyCheck);
+console.log(allPositive(inputSafetyCheck));
+console.log('inputSafetyCheck after running is', inputSafetyCheck);
 
 // 11. Pick a problem from Edabit(https://edabit.com/) or 
 //     CodeWars(https://www.codewars.com/). Then describe it 
 //     here in a comment, write the function, and test it!
+
+//https://edabit.com/challenge/WEvqZTFcHeYzFn74c
+//challenge: a function that returns the perimeter of either a circle or square with a side or radius of given length, using two parameters l and num, where l is
+//a letter either s or c, and num is the given length. additionally, no branching is allowed, and the code must use only arithmetic and comparison operators.
+
+
+/*personal notes: parameter l will be either s or c. c  is the third letter and s is the 19th. we can replace our if/else statement with simply computing both
+and dividing by a factor based on l. this may not give performance gains due to the additional wasted operation, but some efficiency is gained back by not branching.
+
+perimeter of a square = 4*num. circle = 6.28*num (according to problem specification).
+
+utf-16 encoding of c is 99 and s is 115. this is accessible through charCodeAt.
+
+i used a graphing calculator to make a formula for a line containing points (99,6.28) and (115, 4). the formula is y=-2.28/16 x + 20.3875. 
+i know this will make the computer do weird floating point math but performance is not a factor in this problem.
+therefore, we can replace if(l===c) return num*6.28 elseif (l===s) return num*4
+with return num*((-2.28/16)*l.charCodeAt(0) + 20.3875).
+
+this solution is not accepted by edabit due to floating point math imprecision, which is crazy, because the problem requires floating point multiplication
+*/
+function perimeterCatch(l, num){
+return num*(((-2.28/16)*l.charCodeAt(0)) + 20.3875)
+}
+console.log('perimeter of square with side 5', perimeterCatch('s', 5));
+console.log('perimeter of circle with radius 12', perimeterCatch('c', 12));
+
+
 
 
 // DO NOT MODIFY
